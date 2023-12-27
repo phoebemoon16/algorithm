@@ -1,3 +1,10 @@
+/*
+ * @Author: wanghh
+ * @Date: 2023-12-19 16:26:10
+ * @LastEditors: wanghh
+ * @LastEditTime: 2023-12-27 09:04:28
+ * @Description:
+ */
 // 冒泡排序
 function bubbleSort(array) {
   for (let i = 0; i < array.length - 1; i++) {
@@ -21,6 +28,28 @@ function selectSort(array) {
   }
   return array;
 }
+
+// 插入排序 想想扑克牌 未排序的元素去排好的数据中找到自己的位置. 从小到大拍 插入到比自己小的元素前面
+function insertSort(array) {
+  let preIndex, current;
+  for (let i = 1; i < array.length; i++) {
+    preIndex = i - 1;
+    current = array[i];
+    while (preIndex >= 0 && array[preIndex] > current) {
+      array[preIndex + 1] = array[preIndex]; // 之前的位置+1 给当前array[i]预留位置
+      preIndex--;
+    }
+    /**555
+     *  array[i]为什么会有影响呢？ 因为 array[preIndex + 1] = array[preIndex]
+     *  array[preIndex + 1]  === array[index] 被替换了 所以用array[i]在while中会有问题
+     *  需要再while外定义一下
+     *  */
+    console.log(current, array[i], i, "array[i]");
+    array[preIndex + 1] = current;
+  }
+  return array;
+}
+console.log(insertSort([2, 6, 4, 1, 7, 9, 3]), "insertSort");
 
 // 不排序找出里面2个最大值
 function findTwoLargeNumbers(array) {
