@@ -2,7 +2,7 @@
  * @Author: wanghh
  * @Date: 2023-12-27 08:23:10
  * @LastEditors: wanghh
- * @LastEditTime: 2023-12-27 11:23:22
+ * @LastEditTime: 2023-12-27 14:13:10
  * @Description: 根据映射图去查找最小路径
  */
 /**广度优先 */
@@ -13,7 +13,11 @@ function recursionRelation(source, traget) {
     return ["", traget];
   } else {
     while (queue.length > 0) {
-      const path = queue.shift();
+      /** 先进先出
+       * queue.push()
+       * queue.shift()
+       */
+      const path = queue.shift(); // 取出一个元素
 
       const currentStatusTemp = path[path.length - 1];
       // 1. 输出path 可能是没有相对应的路径
