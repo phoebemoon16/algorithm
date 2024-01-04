@@ -50,6 +50,7 @@ abcdef
 left right 如果遇到字符，left right 都加1 遇到数字 left不变 right+1 
 如果滑动窗口里面有2个字母 left需要滑动在第一个字母后的一个位置
 
+滑动窗口 字符串位置
  */
 
 function solution(str){
