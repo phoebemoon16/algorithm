@@ -60,12 +60,13 @@ function solution(str){
     const letterIdx = []
     while(right < str.length) {
         if(isLetter(str[right])) {
-            console.log(right,left)
             hasLetter = true
             letterIdx.push(right)
             if(letterIdx.length > 1) {
                 left = letterIdx.shift() + 1 // 第一个字母的位置后+1
             }
+            console.log(right,left)
+            // left === right 说明当前和前一个字符就是字母 就跳出此循环
             if(left === right) {
                 right++;
                 continue // 跳出这个循环 接着走
