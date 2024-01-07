@@ -29,3 +29,9 @@ bb12-34aa
 解题思路：求最小和 那么负数越大和最小
 
  */
+
+function solution(str){
+    let reg = /?*[a-z][A-Z][0-9]/
+}
+
+console.log(solution('bb12-34aa'))
