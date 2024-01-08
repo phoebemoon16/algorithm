@@ -48,27 +48,6 @@ function solution(array, max) {
     return result
 }
 
-// 每个人只能参加一次 且不能
-function solution2(array, max) {
-    let result = 0
-    let template = []
-    for (let i = 0; i < array.length; i++) {
-        for (let j = i + 1; j < array.length; j++) {
-            console.log(i,j,array[i] + array[j])
-            if (array[i] + array[j] >= max && (!template.includes(i) &&  !template.includes(j))) {
-                template.push(i,j)
-                result++
-                break;
-            }
-        }
-        if (i === array.length - 1 && array[i] >= max && !template.includes(i) ) {
-            result++
-        }
-    }
-    return result
-}
 
 console.log(solution([3, 4, 7], 7))
 console.log(solution([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 1000))
-console.log(solution2([3,1,5,7,9], 8))
-console.log(solution2([3,1,5,7,9,2,6], 8))
