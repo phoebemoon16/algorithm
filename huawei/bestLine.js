@@ -1,3 +1,10 @@
+/*
+ * @Author: wanghh
+ * @Date: 2024-01-09 08:10:34
+ * @LastEditors: wanghh
+ * @LastEditTime: 2024-01-09 08:24:42
+ * @Description:
+ */
 /**
  * 
  * 评估一个网络的信号质量，其中一个做法是将网络划分为栅格，然后对每个栅格的信号质量计算。
@@ -47,35 +54,48 @@
  */
 
 const offsets = [
-    [-1,0],
-    [1,0],
-    [0,-1],
-    [0,1]
-]
+  [-1, 0],
+  [1, 0],
+  [0, -1],
+  [0, 1],
+];
 
-function solution(n,m,maps){
-    let result = []
-    let queue = [[0,0]]
-    // for(let i = 0; i<n; i++) {
-    //     for(let j = 0; j< m; j++) {
-    //         if()
-    //     }
-    // }
-    while(queue.length > 0){
-        const [x,y] = queue.shift()
-        let maxNum = 0
-        for(let [offsetx, offsety] of offsets) {
-            let newX = x + offsetx
-            let newY = y + offsety
-            console.log(x,y,newX, newY)
-            if(newX >=0 && newX < n && newY >=0 && newY < m && maxNum < maps[newX][newY]) {
-                maxNum = maps[newX][newY]
-                queue.push([newX,newY])
-            }
-            result.push(maxNum)
-        }
+function solution(n, m, maps) {
+  let result = [];
+  let queue = [[0, 0]];
+  // for(let i = 0; i<n; i++) {
+  //     for(let j = 0; j< m; j++) {
+  //         if()
+  //     }
+  // }
+  while (queue.length > 0) {
+    const [x, y] = queue.shift();
+    let maxNum = 0;
+    for (let [offsetx, offsety] of offsets) {
+      let newX = x + offsetx;
+      let newY = y + offsety;
+      console.log(x, y, newX, newY);
+      if (
+        newX >= 0 &&
+        newX < n &&
+        newY >= 0 &&
+        newY < m &&
+        maxNum < maps[newX][newY]
+      ) {
+        maxNum = maps[newX][newY];
+        queue.push([newX, newY]);
+      }
+      result.push(maxNum);
     }
+  }
 }
 
-let maps = [[3,4,6,3,4],[0,2,1,1,7],[8,8,3,2,7],[3,2,4,9,8],[4,1,2,0,0],[4,6,5,4,3]]
-console.log(solution(6,5,maps))
+let maps = [
+  [3, 4, 6, 3, 4],
+  [0, 2, 1, 1, 7],
+  [8, 8, 3, 2, 7],
+  [3, 2, 4, 9, 8],
+  [4, 1, 2, 0, 0],
+  [4, 6, 5, 4, 3],
+];
+console.log(solution(6, 5, maps));

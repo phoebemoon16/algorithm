@@ -24,14 +24,14 @@ bb12-34aa
 输出
 -31
 说明
-1+2+（-34） = -3
+1+2+（-34） = -31
 
 解题思路：求最小和 那么负数越大和最小
 
  */
 
-function solution(str){
-    let reg = /?*[a-z][A-Z][0-9]/
+function solution(str) {
+  let reg = /?*[a-z][A-Z][0-9]/;
 }
 
-console.log(solution('bb12-34aa'))
+console.log(solution("bb12-34aa"));

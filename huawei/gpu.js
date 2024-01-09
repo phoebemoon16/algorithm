@@ -1,3 +1,10 @@
+/*
+ * @Author: wanghh
+ * @Date: 2024-01-08 17:09:21
+ * @LastEditors: wanghh
+ * @LastEditTime: 2024-01-09 08:36:07
+ * @Description:
+ */
 /**
  * 
  * 题目描述
@@ -37,26 +44,26 @@
  */
 
 function solution(num, arr) {
-    let result = 0
-    let restNum = 0
-    for(let i = 0; i< arr.length; i++) {
-        if(arr[i] + restNum < num) {
-            restNum = 0
-            result++
-        } else {
-            let intNum = parseInt((arr[i] + restNum) / num)
-            restNum = (arr[i] + restNum) % num
-            result = result + intNum
-        }
-        // 注意最后一个元素 不能只取整数 不取余数
-        if(i === arr.length -1 && restNum >= 1) {
-            result = result + 1
-        }
+  let result = 0;
+  let restNum = 0;
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] + restNum < num) {
+      restNum = 0;
+      result++;
+    } else {
+      let intNum = parseInt((arr[i] + restNum) / num);
+      restNum = (arr[i] + restNum) % num;
+      result = result + intNum;
     }
-    return result
+    // 注意最后一个元素 不能只取整数 不取余数 余数肯定是小于num的
+    if (i === arr.length - 1 && restNum >= 1) {
+      result = result + 1;
+    }
+  }
+  return result;
 }
 
-console.log(solution(4, [5,4,1,1,1]))
-console.log(solution(3, [1,2,3,4,5]))
-console.log(solution(3, [1,1,1,1,1]))
-console.log(solution(3, [4,3,3,5,7]))
+console.log(solution(4, [5, 4, 1, 1, 1]));
+console.log(solution(3, [1, 2, 3, 4, 5]));
+console.log(solution(3, [1, 1, 1, 1, 1]));
+console.log(solution(3, [4, 3, 3, 5, 7]));

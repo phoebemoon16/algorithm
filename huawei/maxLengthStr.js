@@ -1,3 +1,10 @@
+/*
+ * @Author: wanghh
+ * @Date: 2024-01-08 17:09:21
+ * @LastEditors: wanghh
+ * @LastEditTime: 2024-01-08 17:21:26
+ * @Description:
+ */
 /**
  * 题目描述
 给定一个字符串，只包含字母和数字，按要求找出字符串中的最长（连续）子串的长度，字符串本身是其最长的子串，子串要求：
@@ -53,34 +60,36 @@ left right 如果遇到字符，left right 都加1 遇到数字 left不变 right
 滑动窗口 字符串位置
  */
 
-function solution(str){
-    let left = 0,right = 0
-    let maxLegth = -1
-    let hasLetter = false
-    const letterIdx = []
-    while(right < str.length) {
-        if(isLetter(str[right])) {
-            hasLetter = true
-            letterIdx.push(right)
-            if(letterIdx.length > 1) {
-                left = letterIdx.shift() + 1 // 第一个字母的位置后+1
-            }
-            console.log(right,left)
-            // left === right 说明当前和前一个字符就是字母 就跳出此循环
-            if(left === right) {
-                right++;
-                continue // 跳出这个循环 接着走
-            }
-        }
-        maxLegth = Math.max(maxLegth, right-left+1)
-        right ++
+function solution(str) {
+  let left = 0,
+    right = 0;
+  let maxLegth = -1;
+  let hasLetter = false;
+  const letterIdx = [];
+  while (right < str.length) {
+    if (isLetter(str[right])) {
+      hasLetter = true;
+      letterIdx.push(right);
+      // 如果窗口里面出现2个字符 就需要left+1  每个窗口只允许出现一个字符
+      if (letterIdx.length > 1) {
+        left = letterIdx.shift() + 1; // 第一个字母的位置后+1
+      }
+      console.log(right, left);
+      // left === right 说明当前和前一个字符就是字母 就跳出此循环
+      if (left === right) {
+        right++;
+        continue; // 跳出这个循环 接着走
+      }
     }
-    return maxLegth
+    maxLegth = Math.max(maxLegth, right - left + 1);
+    right++;
+  }
+  return maxLegth;
 }
 
-function isLetter(c){
-    return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') 
+function isLetter(c) {
+  return (c >= "a" && c <= "z") || (c >= "A" && c <= "Z");
 }
-console.log(solution('abC124ACb'))
-console.log(solution('aBB9'))
-console.log(solution('abcdef'))
+console.log(solution("abC124ACb"));
+console.log(solution("aBB9"));
+console.log(solution("abcdef"));

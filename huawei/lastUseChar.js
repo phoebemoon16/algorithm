@@ -1,3 +1,10 @@
+/*
+ * @Author: wanghh
+ * @Date: 2024-01-03 09:07:32
+ * @LastEditors: wanghh
+ * @LastEditTime: 2024-01-08 17:12:44
+ * @Description:
+ */
 /**
  * 字符串序列判定/最后一个有效字符
  * 输入两个字符串S和L，都只包含英文小写字母。S长度<=100，L长度<=500,000。判定S是否是L的有效子串
@@ -28,6 +35,7 @@ function findLastIndex(target, source) {
     }
     fast++;
   }
+  // 利用双指针去做 slow表示target的每个字符在source里都能找到就+1 如果slow的长度和target的长度相等的话 说明taget是被source包含的
   if (slow === target.length) {
     return fast - 1; // 减去最后的那个加1
   } else {
