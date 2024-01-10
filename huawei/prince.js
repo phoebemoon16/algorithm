@@ -62,12 +62,18 @@ function solution(n, m, k) {
   return ans;
 }
 
+
+// 记住一个知识点： 数位之和 就是个位+十位+百位等等 就是数位之和
 function getDigitSum(num) {
   let sum = 0;
   while (num > 0) {
-    sum += num % 10;
-    num = Math.floor(num / 10);
+    console.log(num, '000')
+    sum += num % 10; // 个位数
+    num = Math.floor(num / 10); // 十位数
+    console.log(num, '1111')
   }
   return sum;
 }
-console.log(solution(40, 40, 18));
+
+console.log(getDigitSum(121))
+// console.log(solution(40, 40, 18));

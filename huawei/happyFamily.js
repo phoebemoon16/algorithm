@@ -34,6 +34,7 @@ function solution(arr) {
   let n = arr.length;
   let m = arr[0].length;
   function dfs(x, y) {
+    // 不管哪条路径走到最后一步 ans都要++
     if (x === n - 1 && y === m - 1) {
       ans++;
       return;
@@ -68,7 +69,7 @@ console.log(
   ])
 );
 
-// 动态规划
+// 动态规划  dp[i][j] = dp[i-1][j]+dp[i][j-1]
 function dpFun(arr) {
   let n = arr.length;
   let m = arr[0].length;
