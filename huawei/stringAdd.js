@@ -33,9 +33,38 @@ dde 2
 
  */
 function solution(str, n) {
-  let arr = str.split('').sort()
-  let dp = new Array(str.length).fill(0).map(() => new Array(n).fill(0))
-  console.log(arr, dp, 'dp---')
+  let arr = str.split("").sort().join("");
+  // let dp = new Array(str.length).fill(0).map(() => new Array(n).fill(0))
+  let resultAll = [];
+  function generateStrings(currentString, remainChars, result) {
+    if (currentString.length === n) {
+      result.push(currentString);
+      return;
+    }
+    for (let i = 0; i < remainChars.length; i++) {
+      if (i > 0 && remainChars[i] === remainChars[i - 1]) {
+        continue;
+      }
+      if (currentString === remainChars[i]) {
+        continue;
+      }
+      console.log(
+        currentString + remainChars[i],
+        remainChars.slice(0, i) + remainChars.slice(i + 1),
+        i,
+        "iiii"
+      );
+      generateStrings(
+        currentString + remainChars[i],
+        remainChars.slice(0, i) + remainChars.slice(i + 1),
+        result
+      );
+    }
+  }
+  generateStrings("", arr, resultAll);
+  return resultAll;
 }
 
-console.log(solution('bbe', 2))
+console.log(solution("bbe", 2));
+console.log(solution("bbb", 2));
+console.log(solution("abc", 2));
