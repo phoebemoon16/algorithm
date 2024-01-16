@@ -2,7 +2,7 @@
  * @Author: wanghh
  * @Date: 2024-01-09 08:10:34
  * @LastEditors: wanghh
- * @LastEditTime: 2024-01-09 08:24:42
+ * @LastEditTime: 2024-01-16 09:50:16
  * @Description:
  */
 /**
@@ -51,43 +51,43 @@
 3
 说明
 路线为：3→4→6→3→4→7→7→8→9→4→3→8→8→3→4→4→6→5→4→3
+
+解题思路： 动态规划
+先建立一个与地图大小相同的二维数组，表示到达每个栅格时的最优得分
  */
 
-const offsets = [
-  [-1, 0],
-  [1, 0],
-  [0, -1],
-  [0, 1],
-];
+function optimalScore(n, m, maps) {
+  const directions = [
+    [-1, 0],
+    [1, 0],
+    [0, -1],
+    [0, 1],
+  ];
+  let maxScore = 0;
 
-function solution(n, m, maps) {
-  let result = [];
-  let queue = [[0, 0]];
-  // for(let i = 0; i<n; i++) {
-  //     for(let j = 0; j< m; j++) {
-  //         if()
-  //     }
-  // }
-  while (queue.length > 0) {
-    const [x, y] = queue.shift();
-    let maxNum = 0;
-    for (let [offsetx, offsety] of offsets) {
-      let newX = x + offsetx;
-      let newY = y + offsety;
-      console.log(x, y, newX, newY);
-      if (
-        newX >= 0 &&
-        newX < n &&
-        newY >= 0 &&
-        newY < m &&
-        maxNum < maps[newX][newY]
-      ) {
-        maxNum = maps[newX][newY];
-        queue.push([newX, newY]);
+  // 判断当前判断坐标是否合法
+  function isValid(x, y) {
+    return x >= 0 && x < n && y >= 0 && y < m;
+  }
+
+  function dfs(x, y, minScore) {
+    console.log(x, y, maps[x][y], minScore);
+    minScore = Math.min(minScore, maps[x][y]);
+    if (x === n - 1 && y === m - 1) {
+      maxScore = Math.max(maxScore, minScore);
+      return;
+    }
+
+    for (const [dx, dy] of directions) {
+      const newX = x + dx;
+      const newY = y + dy;
+      if (isValid(newX, newY)) {
+        dfs(newX, newY, minScore);
       }
-      result.push(maxNum);
     }
   }
+  dfs(0, 0, maps[0][0]);
+  return maxScore;
 }
 
 let maps = [
@@ -98,4 +98,4 @@ let maps = [
   [4, 1, 2, 0, 0],
   [4, 6, 5, 4, 3],
 ];
-console.log(solution(6, 5, maps));
+console.log(optimalScore(6, 5, maps));
