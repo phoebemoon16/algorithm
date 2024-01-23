@@ -43,7 +43,7 @@ console.log(longestPalindrome(s));
  * 动态规划的解法 dp[i][j] 表示s[i]到s[j] 是不是回文字符串
  *  */
 
-function dpFun(s) {
+function dpTwoFun(s) {
   if (s.length === 0) {
     return "";
   }
@@ -84,4 +84,38 @@ function dpFun(s) {
   return s.substring(start, start + maxLength);
 }
 
+// 动态一维 好像做法更为方便
+function dpFun(s) {
+  if (s.length === 0) {
+    return "";
+  }
+  const n = s.length;
+  let start = 0;
+  let maxLength = 1;
+
+  // 优化为一维数组，dp[i] 表示以 s[i] 结尾的最长回文子串的长度
+  const dp = Array(n).fill(0);
+  for (let i = n - 1; i >= 0; i--) {
+    let prev = 0;
+    for (let j = n - 1; j >= i; j--) {
+      const temp = dp[j]; //临时存储 dp[j] 的值
+      if (i === j) {
+        dp[j] = 1; // 单字符为回文
+      } else if (s[i] === s[j]) {
+        dp[j] = prev + 2; // 更新为 dp[i+1][j-1] + 2
+      } else {
+        dp[j] = 0;
+      }
+      prev = temp; // 更新 prev 为上一次的 dp[i+1][j-1]
+
+      // 更新最长回文子串的起始位置和长度
+      if (dp[j] > maxLength) {
+        maxLength = dp[j];
+        start = i;
+      }
+    }
+  }
+  return s.substring(start, start + maxLength);
+}
+console.log(dpTwoFun(s));
 console.log(dpFun(s));
