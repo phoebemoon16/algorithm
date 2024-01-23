@@ -1,4 +1,4 @@
-const { count } = require("console")
+const { count } = require("console");
 
 /**
  * 
@@ -42,23 +42,18 @@ const { count } = require("console")
 解题思路： 把111替换成x  11替换成X 1替换成x 看有多少个x 就是最少有多少辆车
  */
 function solution(str) {
-    let str2 = str.replaceAll(',', '').replaceAll('111','x').replaceAll('11','x').replaceAll('1','x')
-    let count = 0
-    for(let i = 0; i<str.length; i++) {
-        if(str2[i] === 'x') {
-            count++
-        }
+  let str2 = str
+    .replaceAll(",", "")
+    .replaceAll("111", "x")
+    .replaceAll("11", "x")
+    .replaceAll("1", "x");
+  let count = 0;
+  for (let i = 0; i < str.length; i++) {
+    if (str2[i] === "x") {
+      count++;
     }
-    // while(true) {
-    //     let index = str.indexOf('x')
-    //     if(index !== -1) {
-    //         count++
-    //     } else {
-    //         str = str.slice(index + 1)
-    //         break
-    //     }
-    // }
-    return count
+  }
+  return count;
 }
-console.log(solution('1,1,0,0,1,1,1,0,1'))
-console.log(solution('1,0,1'))
+console.log(solution("1,1,0,0,1,1,1,0,1"));
+console.log(solution("1,0,1"));
