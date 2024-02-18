@@ -119,3 +119,40 @@ function dpFun(s) {
 }
 console.log(dpTwoFun(s));
 console.log(dpFun(s));
+
+// 最能理解的方案
+function solution(s) {
+  let n = s.length;
+
+  if (n === 0) {
+    return "";
+  }
+
+  let dp = new Array(n).fill(false).map(() => new Array(n).fill(false));
+
+  let start = 0;
+  let maxLength = 1;
+
+  for (let i = 0; i < n; ++i) {
+    for (let j = 0; j <= i; ++j) {
+      if (i - j < 2) {
+        dp[j][i] = s[i] === s[j];
+      } else {
+        // 要求此2个字符相等且之前的字符也需要是回文字符
+        dp[j][i] = s[i] === s[j] && dp[j + 1][i - 1]; // 之前的字符全部是回文
+      }
+
+      console.log(i - j + 1, maxLength, start, "i - j + 1");
+      // 设置取更长的回文字符串，遇到更长的就修改start,maxLength
+      if (dp[j][i] && maxLength < i - j + 1) {
+        maxLength = i - j + 1;
+        start = j;
+      }
+    }
+  }
+
+  console.log(start, maxLength, "max");
+  return s.substring(start, start + maxLength);
+}
+
+console.log(solution(s), "solution");
