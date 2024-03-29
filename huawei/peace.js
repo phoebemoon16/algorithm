@@ -35,7 +35,8 @@
 解题思路： 先排序
 1.如果桃树的数量和小时数相等，就返回桃树数组中最大的值
 2.如果桃树的属性大于小时数，直接返回0 吃不完
-3.如果桃树的数量小于小时数，逻辑复杂点：少于最大值 估计多少个看情况
+3.如果桃树的数量小于小时数，逻辑复杂点：
+求最小速度：先找最大速度（桃树上的最大果实树） 然后二分逐渐找最小速度 直到最小速度大于最大速度
  */
 
 function solution(piles, H) {
@@ -61,10 +62,11 @@ function solution(piles, H) {
   return left;
 }
 
+//
 function canEatAll(piles, H, speed) {
   let hourNeed = 0;
   for (const pile of piles) {
-    hourNeed += Math.ceil(pile / speed);
+    hourNeed += Math.ceil(pile / speed); // 返回给定大于等于数字的最大整数 Math.ceil(4 / 3） 为2
   }
   console.log(piles, hourNeed, speed, "hourNeed");
   return hourNeed <= H;

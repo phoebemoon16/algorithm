@@ -1,3 +1,10 @@
+/*
+ * @Author: wanghh
+ * @Date: 2024-01-08 17:09:21
+ * @LastEditors: wanghh
+ * @LastEditTime: 2024-01-16 17:22:33
+ * @Description:
+ */
 /**
  * 
  * 题目描述
@@ -38,23 +45,25 @@
 124的好朋友是2位置上的125
 125的好朋友是6位置上的126
 以此类推
+
+解题思路：2个for循环直接循环即可
  */
 
-function solution(arr){
-  let result = []
-//   let result = new Array(arr.length).fill(0)
-  for(let i =0 ;i < arr.length; i++) {
-      let index = 0
-      for(let j = i + 1; j< arr.length;j ++) {
-        if(arr[j] > arr[i]) {
-            index = j
-            break
-        } 
+function solution(arr) {
+  let result = [];
+  //   let result = new Array(arr.length).fill(0)
+  for (let i = 0; i < arr.length; i++) {
+    let index = 0;
+    for (let j = i + 1; j < arr.length; j++) {
+      if (arr[j] > arr[i]) {
+        index = j;
+        break;
       }
-      result.push(index)
-      //   result[i] = j 用数组做也可以
+    }
+    result.push(index);
+    //   result[i] = j 用数组做也可以
   }
-  return result
+  return result;
 }
-console.log(solution([123, 124, 125,121 ,119, 122, 126, 123]))
-console.log(solution([100,95]))
+console.log(solution([123, 124, 125, 121, 119, 122, 126, 123]));
+console.log(solution([100, 95]));

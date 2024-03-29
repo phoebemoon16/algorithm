@@ -1,6 +1,15 @@
+/*
+ * @Author: wanghh
+ * @Date: 2024-01-11 08:09:23
+ * @LastEditors: wanghh
+ * @LastEditTime: 2024-01-16 15:34:15
+ * @Description:
+ */
 /** 寻宝
- * 小华按照地图去寻宝，地图上被划分成 m 行和 n 列的方格，横纵坐标范围分别是 [0, n-1] 和 [0, m-1]。
-在横坐标和纵坐标的数位之和不大于 k 的方格中存在黄金（每个方格中仅存在一克黄金），但横坐标和纵坐标之和大于 k 的方格存在危险不可进入。小华从入口 (0,0) 进入，任何时候只能向左，右，上，下四个方向移动一格。
+ * 
+小华按照地图去寻宝，地图上被划分成 m 行和 n 列的方格，横纵坐标范围分别是 [0, n-1] 和 [0, m-1]。
+在横坐标和纵坐标的数位之和不大于 k 的方格中存在黄金（每个方格中仅存在一克黄金），但横坐标和纵坐标之和
+大于 k 的方格存在危险不可进入。小华从入口 (0,0) 进入，任何时候只能向左，右，上，下四个方向移动一格。
 请问小华最多能获得多少克黄金？
 
 输入描述
@@ -25,7 +34,8 @@ k 的取值范围如下：
 输出
 20
 
-解题思路： 双重循环 深度优先
+解题思路： 
+双重循环 深度优先
  */
 function solution(n, m, k) {
   let ans = 0;
@@ -62,18 +72,17 @@ function solution(n, m, k) {
   return ans;
 }
 
-
 // 记住一个知识点： 数位之和 就是个位+十位+百位等等 就是数位之和
 function getDigitSum(num) {
   let sum = 0;
   while (num > 0) {
-    console.log(num, '000')
+    console.log(num, "000");
     sum += num % 10; // 个位数
     num = Math.floor(num / 10); // 十位数
-    console.log(num, '1111')
+    console.log(num, "1111");
   }
   return sum;
 }
 
-console.log(getDigitSum(121))
+console.log(getDigitSum(121));
 // console.log(solution(40, 40, 18));
