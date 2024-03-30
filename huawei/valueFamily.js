@@ -26,23 +26,36 @@
 
 1 2 3小家庭为600 2 4小家庭为700 
 
-注意点：和广度优先和深度优先还不太一样
-解题思路： 定义一个family数组，他的index的值表示当前节点的最大资产，
+解题思路： 定义一个family数组，他的index的值表示当前节点的最大资产，在孩子节点的资产都放在父节点上，然后去财产的最大值，这就是最富裕的小家庭的财产数目
+
 
 读取输入的值
  const n = parseInt(await readline());
  const wealth = (await readline()).split(" ").map(Number);
+
+ wealth = waelth.unshift(0) index表示
+ const family = [...wealth] 构造一个index为节点数，值为财富数的一个数组
+
+ 遍历节点树 将子节点的财产都放在family函数中
+ for(let i = 0 ; i<n ; i++) {
+    const [fa, ch] = realction[i]
+    family[fa] += family[ch]
+ }
+
+ family 最大值就是最大财富数目
+ Math.max(...family)
  */
 
 function solution(n, wealth, relationShip) {
   wealth.unshift(0); // 从1开始为了让wealth数组索引对应成员编号1~n
-  const family = [...wealth];
+  const family = [...wealth]; // 定义一个family的 索引值为节点值 值为财富数
+  // console.log(family, 'faily')
   for (let i = 0; i < n - 1; i++) {
     const [fa, ch] = relationShip[i]; // 解构算法 自己就想不到这种方式
-    family[fa] += wealth[ch];
-    console.log(family, "faily000");
+    family[fa] += wealth[ch]; // 把孩子的财富都积累到父节点上
+    // console.log(family, "faily000");
   }
-  return Math.max(...family);
+  return Math.max(...family); // 求出family的最大值 就是最富裕的小家庭的数值 其index就是最富裕的家庭的父节点 求具体富裕家庭的节点 也可以求出来
 }
 
 const wealth = [100, 200, 300, 500];
@@ -60,4 +73,5 @@ const relationShip2 = [
   [1, 3],
 ];
 
+console.log(solution(4, wealth, relationShip)); // 父节点为2的小家庭 是最为富裕的。
 console.log(solution(5, wealth2, relationShip2)); // 下标为3（父节点）的财富最大
