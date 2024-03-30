@@ -127,3 +127,37 @@ function friends(array){
 }
 
 console.log(friends([2,2,3]))
+
+
+/**
+ * 
+ * @param {*} array 
+ * 贪吃猴子： 可以从一边开始吃，可以两头吃， 但是中间不能有间隔
+ * 解题思路： 先从一边开始吃 取得一定的值， 然后定义2个指针，从另一边开始移动 直到另一边的位置为n 取的其最大值
+ */
+function monkey(array, n){
+  let leftNum = 0
+  for(let i = 0; i<n; i++) {
+    leftNum += array[i]
+  }
+  let maxNum = leftNum
+  // n大于array的长度，说明是可以全部吃完的。
+  if (n >= array.length) {
+    return maxNum
+  } else {
+    let left = n-1
+    let right = array.length-1
+    while(left >= 0) {
+      leftNum = leftNum - array[left] + array[right]
+      left--
+      right--
+      maxNum = Math.max(maxNum, leftNum)
+    }
+  }
+  return maxNum
+}
+
+console.log(monkey([4, 2, 2, 3], 2), 'monkey');
+console.log(monkey([1, 2, 3], 3));
+
+console.log(monkey([1, 2, 2, 7, 3, 6, 1], 3));
