@@ -26,6 +26,7 @@ function solution(array){
     for(let i = 0; i< array.length; i++) {
         wealth[i] = array[i]
         let j = i +1 
+        // 可以循环2次求取 因为是旋转的 所以数组可以循环2次
         while(j < n *2) {
             if (array[i] > array[j % n]) {
                 wealth[i] = array[i]+array[j % n]
