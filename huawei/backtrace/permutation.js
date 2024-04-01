@@ -15,6 +15,7 @@ function solution(array) {
       result.push(path.slice());
       return;
     }
+    // 另一种做法
     // array.forEach((item) => {
     //   console.log(item, path,'item000')
     //   if (path.includes(item)) return; //不包含重复的数字
