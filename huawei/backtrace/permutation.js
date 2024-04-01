@@ -16,14 +16,19 @@ function solution(array) {
       return;
     }
     // array.forEach((item) => {
+    //   console.log(item, path,'item000')
     //   if (path.includes(item)) return; //不包含重复的数字
     //   backTrack([...path, item]); //加入路径，继续递归选择
     // });
+    // forEach   和 for 循环的 return的含义是不一样的！！！ forEach 是跳出当前循环 后面的还可以继续执行 for循环 return 是跳出此循环 后面的都不继续执行！！！！
     for (let i = 0; i < array.length; i++) {
-      if (path.includes(array[i])) {
-        return;
+      if (!path.includes(array[i])) {
+        backTrack([...path, array[i]]);
       }
-      backTrack([...path, array[i]]);
+      // if(path.includes(array[i])) {
+      //   return 
+      // }
+      // backTrack([...path, array[i]]);
     }
   }
   backTrack([]);

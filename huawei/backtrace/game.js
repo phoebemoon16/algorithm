@@ -121,6 +121,7 @@ function solution3(array) {
   return result;
 }
 
+
 // 在solution3的基础上增加求和操作
 function solution4(array) {
   let result = [];
@@ -172,12 +173,13 @@ function solution5(array) {
   return diff;
 }
 
+let array = solution3([3, 5, 2, 1])
 // 可能组成的队伍组合
-console.log(solution3([3, 5, 2, 1]));
+console.log(array), '';
 
 // 可能组成的队伍组合之和
-console.log(solution([3, 5, 2, 1]));
+// console.log(solution([3, 5, 2, 1]));
 
-console.log(solution4([3, 5, 2, 1]), "444");
+// console.log(solution4([3, 5, 2, 1]), "444");
 
-console.log(solution5([3, 5, 2, 1, 9, 8, 6, 7, 4, 10]), "555");
+// console.log(solution5([3, 5, 2, 1, 9, 8, 6, 7, 4, 10]), "555");
