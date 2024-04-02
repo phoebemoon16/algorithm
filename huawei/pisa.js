@@ -70,21 +70,53 @@ function solution(n, array) {
 }
 console.log(solution(5, [8, 2, 10, 5, 7]));
 
-console.log(maxPizzaSum([8, 2, 10, 5, 7]));
-function maxPizzaSum(nums) {
-  return Math.max(
-    // "吃货"选择第一块披萨，然后递归计算另一个玩家在剩余披萨序列上可以获得的最小披萨总和
-    nums[0] + Math.min(pizzaSum(nums.slice(2)), pizzaSum(nums.slice(1, -1))),
-    // "吃货"选择最后一块披萨，然后递归计算另一个玩家在剩余披萨序列上可以获得的最小披萨总和
-    nums[nums.length - 1] +
-      Math.min(pizzaSum(nums.slice(1, -1)), pizzaSum(nums.slice(0, -2)))
-  );
+function solution2(n ,array){
+  // 1.先求最大值并找出其位置
+  let maxItem = Math.max(...array)
+  let index = array.findIndex(item => item === maxItem)
+
+  let fristArray = []
+  let lastArray = []
+  fristArray.push(maxItem)
+
+  function getIndex(a,b){
+    if(b === 0 || b === array.length - 1) {
+      return [0, array.length - 2]
+    }  else {
+      return [a,b]
+    }
+  }
+
+  function findMax(a,b, isFrist){
+    if(array.length == 1) {
+      fristArray.push(array[0])
+      return
+    }
+    let maxItemem = array[a]
+    let maxindex = a 
+    if(array[a] < array[b]) {
+      maxItemem = array[b]
+      maxindex = b
+    }  
+    if(isFrist) {
+      fristArray.push(maxItemem)
+    } else {
+      lastArray.push(maxItemem)
+    }
+    let [amid,bmid] = getIndex(maxindex -1, maxindex)
+    array.splice(maxindex, 1)
+    findMax(amid, bmid, !isFrist)
+  }
+  let [x,y] = getIndex(index -1, index)
+  array.splice(index, 1)
+  findMax(x, y, false)
+
+  console.log(fristArray, lastArray, '000')
+  return fristArray.reduce((acc, cur) => acc+cur)
+
 }
 
-// 计算另一个玩家在剩余披萨序列上可以获得的最小披萨总和
-function pizzaSum(nums) {
-  if (nums.length === 1) {
-    return nums[0];
-  }
-  return Math.min(maxPizzaSum(nums), maxPizzaSum(nums.slice(1)));
-}
+console.log(solution2(5, [8, 2, 10, 5, 7]))
+console.log(solution2(3, [8, 2, 10]))
+console.log(solution2(7, [30, 20, 10, 13, 22, 17,19]))
+console.log(solution2(5, [8, 2, 10, 5, 20]))
