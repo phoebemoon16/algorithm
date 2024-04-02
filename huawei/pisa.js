@@ -81,7 +81,7 @@ function solution2(n ,array){
 
   function getIndex(a,b){
     if(b === 0 || b === array.length - 1) {
-      return [0, array.length - 2]
+      return [0, array.length - 2] // 再减一是考虑到后面还会在splice的情况
     }  else {
       return [a,b]
     }
@@ -108,7 +108,7 @@ function solution2(n ,array){
     findMax(amid, bmid, !isFrist)
   }
   let [x,y] = getIndex(index -1, index)
-  array.splice(index, 1)
+  array.splice(index, 1)  // 最后在splice是为了考虑边界的情况 否则边界会受到影响
   findMax(x, y, false)
 
   console.log(fristArray, lastArray, '000')
