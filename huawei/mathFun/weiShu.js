@@ -2,7 +2,7 @@
  * @Author: wanghh
  * @Date: 2024-04-03 16:46:25
  * @LastEditors: wanghh
- * @LastEditTime: 2024-04-03 16:47:07
+ * @LastEditTime: 2024-04-03 17:06:42
  * @Description:
  */
 /** 题目描述: 出租车计费 、靠谱的车
@@ -21,4 +21,11 @@
 一个数字，表示实际产生的费用。以回车结束
 
 遇到4就直接+1 直到遇到的位数里面没有4
+
+想不到===
+实际答案： 想等于9进制计数器的工作原理 逢9进1
+https://fcqian.blog.csdn.net/article/details/127418150
+
+相同题型 总是跳过3和8 想等于8进制计数器的工作原理 逢9进1
+https://fcqian.blog.csdn.net/article/details/127490548
 */
