@@ -2,7 +2,7 @@
  * @Author: wanghh
  * @Date: 2024-04-02 16:19:35
  * @LastEditors: wanghh
- * @LastEditTime: 2024-04-02 17:05:06
+ * @LastEditTime: 2024-04-03 08:27:28
  * @Description:
  */
 /** 题目描述:
@@ -70,53 +70,57 @@ function solution(n, array) {
 }
 console.log(solution(5, [8, 2, 10, 5, 7]));
 
-function solution2(n ,array){
+function solution2(n, array) {
   // 1.先求最大值并找出其位置
-  let maxItem = Math.max(...array)
-  let index = array.findIndex(item => item === maxItem)
+  let maxItem = Math.max(...array);
+  let index = array.findIndex((item) => item === maxItem);
 
-  let fristArray = []
-  let lastArray = []
-  fristArray.push(maxItem)
+  let fristArray = [];
+  let lastArray = [];
+  fristArray.push(maxItem);
 
-  function getIndex(a,b){
-    if(b === 0 || b === array.length - 1) {
-      return [0, array.length - 2] // 再减一是考虑到后面还会在splice的情况
-    }  else {
-      return [a,b]
-    }
-  }
-
-  function findMax(a,b, isFrist){
-    if(array.length == 1) {
-      fristArray.push(array[0])
-      return
-    }
-    let maxItemem = array[a]
-    let maxindex = a 
-    if(array[a] < array[b]) {
-      maxItemem = array[b]
-      maxindex = b
-    }  
-    if(isFrist) {
-      fristArray.push(maxItemem)
+  // 获取删除元素的边界
+  function getBoundaryIndex(index) {
+    // 考虑b是边界的情况
+    if (index === 0 || index === array.length - 1) {
+      return [0, array.length - 2]; // 再减一是考虑到后面还会在splice的情况 array的length 会再减一
     } else {
-      lastArray.push(maxItemem)
+      return [index - 1, index]; // 因为考虑到后面会-1 所以后边界不需要+1
     }
-    let [amid,bmid] = getIndex(maxindex -1, maxindex)
-    array.splice(maxindex, 1)
-    findMax(amid, bmid, !isFrist)
   }
-  let [x,y] = getIndex(index -1, index)
-  array.splice(index, 1)  // 最后在splice是为了考虑边界的情况 否则边界会受到影响
-  findMax(x, y, false)
 
-  console.log(fristArray, lastArray, '000')
-  return fristArray.reduce((acc, cur) => acc+cur)
+  function findMax(a, b, isFrist) {
+    // 因为是奇数 所以最后一个肯定是fristArray的
+    if (array.length == 1) {
+      fristArray.push(array[0]);
+      return;
+    }
+    let maxItemem = array[a];
+    let maxindex = a;
+    if (array[a] < array[b]) {
+      maxItemem = array[b];
+      maxindex = b;
+    }
+    // 判断是谁吃
+    if (isFrist) {
+      fristArray.push(maxItemem);
+    } else {
+      lastArray.push(maxItemem);
+    }
+    let [amid, bmid] = getBoundaryIndex(maxindex);
+    array.splice(maxindex, 1);
+    findMax(amid, bmid, !isFrist);
+  }
+  let [x, y] = getBoundaryIndex(index); // 考虑一下被删除元素是边界的情况 考虑后再删除
+  // 最后在splice是为了考虑倒数第二个的情况  如果先splice的话 其相应边界为最后一个 会有相应的问题
+  array.splice(index, 1);
+  findMax(x, y, false);
 
+  console.log(fristArray, lastArray, "000");
+  return fristArray.reduce((acc, cur) => acc + cur);
 }
 
-console.log(solution2(5, [8, 2, 10, 5, 7]))
-console.log(solution2(3, [8, 2, 10]))
-console.log(solution2(7, [30, 20, 10, 13, 22, 17,19]))
-console.log(solution2(5, [8, 2, 10, 5, 20]))
+console.log(solution2(5, [8, 2, 10, 5, 7]));
+console.log(solution2(3, [8, 2, 10]));
+console.log(solution2(7, [30, 20, 10, 13, 22, 17, 19]));
+console.log(solution2(5, [8, 2, 10, 5, 20]));
