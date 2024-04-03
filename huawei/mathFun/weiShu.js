@@ -29,3 +29,39 @@ https://fcqian.blog.csdn.net/article/details/127418150
 相同题型 总是跳过3和8 想等于8进制计数器的工作原理 逢9进1
 https://fcqian.blog.csdn.net/article/details/127490548
 */
+
+function solution(num) {
+    let sum = 0
+    for(let i = 0; i<num.length; i++) {
+        if(num[i] > 4) {
+            sum += (num[i] - 1) * Math.pow(9, Math.abs(num.length - 1- i))
+        } else {
+            sum += num[i] * Math.pow(9, Math.abs(num.length - 1 - i ))
+        }
+    }
+    return sum
+}
+
+
+function solution2(num) {
+    num = num.split('').reverse().join('')
+    let sum = 0
+    for(let i = 0; i<num.length; i++) {
+        if(num[i] > 4) {
+            sum += (num[i] - 1) * Math.pow(9, i)
+        } else {
+            sum += num[i] * Math.pow(9, i)
+        }
+    }
+    return sum
+}
+
+console.log(solution('8'))
+console.log(solution('38'))
+console.log(solution('58'))
+console.log(solution('558'))
+
+console.log(solution2('8'))
+console.log(solution2('38'))
+console.log(solution2('58'))
+console.log(solution2('558'))
