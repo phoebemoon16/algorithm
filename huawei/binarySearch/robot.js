@@ -11,13 +11,15 @@
 第一行为一行数字，空格分隔
 输出描述:
 机器人每小时最少需要充的能量格，若无法完成任务，输出-1
+
+和贪婪的孙悟空吃桃子一样！！！
  */
 
 // 判断能不能搬完
 function check(enery, array){
     let num = 0
     for(let item of array) {
-        num += Math.ceil(item / enery)
+        num += Math.ceil(item / enery) // math.ceil 向上取整
     }
     if (num <= 8) return true
     else return false
@@ -38,7 +40,7 @@ function solution(array) {
     // 查找！！！ 能想到的查找算法 就是二分算法！最快的查找方法 二分查找的另类方法！！
     let min = 1
     let ans = max
-    while(min < max) {
+    while(min <= max) {
         let middle = Math.floor((min + max)/ 2)
         if (check(middle, array)) { // 找到符合条件的 也要接着找 知道不符合条件 则上一个值就是我们要查找的值
             ans = middle
@@ -51,3 +53,17 @@ function solution(array) {
 }
 
 console.log(solution([30,12,25,8,19]))
+
+/** 
+ * 能否满足条件
+ * 每个元素除于speed 然后再取整即可
+ * 
+ */
+function isCheck(array, speed, H){
+    let sum = 0
+    for(let item of array) {
+        sum += Math.ceil(item / speed)
+    }
+    return sum <= H
+}
+console.log(isCheck([1,2,3], 2, 3))

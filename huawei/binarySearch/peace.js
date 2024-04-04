@@ -23,25 +23,25 @@
 输入
 2 3 4 5
 3
-输出
-0
+输出  
+0  因为只有3个小时 有4个桃树所以肯定吃不完
 用例3
 输入
 30 11 23 4 20
 6
 输出
-23
+23 有5个桃树 可以偷6个小时 求最小速度 可以 用二分法查
 
-解题思路： 先排序
+解题思路：
 1.如果桃树的数量和小时数相等，就返回桃树数组中最大的值
 2.如果桃树的属性大于小时数，直接返回0 吃不完
 3.如果桃树的数量小于小时数，逻辑复杂点：
-求最小速度：先找最大速度（桃树上的最大果实树） 然后二分逐渐找最小速度 直到最小速度大于最大速度
+求最小速度：先找最大速度（桃树上的最大果实树） 最小速度为1 然后二分逐渐找最小速度 直到最小速度大于最大速度
+
+和机器人搬砖有点类似！！ robot.js 都是在相应的时间内找到最小的速度（能力点）只不过这里小时数是动态的 机器人是写死的8小时
  */
 
 function solution(piles, H) {
-  let left = 1; // 最小吃的速度
-  let right = Math.max(...piles); // 最大吃的速度
   // 如果小时数小于桃树的数量 那怎么吃都吃不完 所以直接返回0
   if (H < piles.length) {
     return 0;
@@ -49,17 +49,21 @@ function solution(piles, H) {
   if (H === piles.length) {
     return Math.max(...piles);
   }
-  while (left <= right) {
+  let left = 1; // 最小吃的速度
+  let right = Math.max(...piles); // 最大吃的速度
+  let ans = 0
+  while (left <= right) {  // 直到left === right 没有可早的位置
     // mid为每次吃几个 先设置中间位置的速度
     const mid = Math.floor((left + right) / 2);
     if (canEatAll(piles, H, mid)) {
-      right = mid - 1; // 能全部吃完 最大速度就减一
+      ans = mid
+      right = mid - 1; // 能全部吃完 最大速度就减一 因为是求最小速度 所以能吃完也要继续找 
     } else {
       left = mid + 1; // 不能全部吃完 就最小吃的速度加1
     }
   }
   //直到能吃完的最大速度和最小速度相等 或者最大大于最小 即可
-  return left;
+  return ans;
 }
 
 //
@@ -68,9 +72,17 @@ function canEatAll(piles, H, speed) {
   for (const pile of piles) {
     hourNeed += Math.ceil(pile / speed); // 返回给定大于等于数字的最大整数 Math.ceil(4 / 3） 为2
   }
-  console.log(piles, hourNeed, speed, "hourNeed");
+  // console.log(piles, hourNeed, speed, "hourNeed");
   return hourNeed <= H;
 }
 console.log(solution([2, 3, 4, 5], 4));
 console.log(solution([2, 3, 4, 5], 3));
+
+
+console.log(solution([1,2, 3, 4, 5,6,7], 7));
+console.log(solution([1,2, 3, 4, 5,6,7], 8));
+console.log(solution([1,2, 3, 4, 5,6,7], 9));
+
+
+console.log(solution([2, 3, 4, 5], 6));
 console.log(solution([30, 11, 23, 4, 20], 6));

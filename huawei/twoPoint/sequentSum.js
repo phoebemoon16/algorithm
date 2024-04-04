@@ -15,7 +15,7 @@
 输出：4  // 3 4 | 3 4 7 | 4 7 | 7
 
 解法：1.简单粗暴 2个for
-2.双指针 left right
+2.双指针 left right left最小 right:left+1
  */
 function solution(array, sum) {
   let left = 0;
