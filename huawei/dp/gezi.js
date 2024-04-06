@@ -47,7 +47,7 @@ function solution(arr, num) {
     for (let j = Math.max(0, i - num); j < i; j++) {
       maxScore = Math.max(maxScore, dp[j] + arr[i]);
     }
-    dp[i] = maxScore;
+    dp[i] = maxScore; // 意思为跳到第i步 所需要的最大步数 求出i上每一个的最大步数 最后输出最后一个即可
   }
   console.log(dp, "dp000");
   return dp[arr.length - 1];
