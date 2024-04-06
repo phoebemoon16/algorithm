@@ -92,6 +92,8 @@ function solution2(m,n,map){
         if(map[x][y] == -1) { 
             map[x][y] = 0 
         }
+        // let sum = currentPath.reduce((acc,cur) => acc+cur)
+        // if(sum > 100) continue
 
         for (let [offsetX, offsetY] of offset) {
             const newX = offsetX + x
@@ -102,8 +104,13 @@ function solution2(m,n,map){
             if(map[newX][newY] == -1) {
                 currentPath.push(0)
             } else {
-                currentPath.push(map[x][y] + map[newX][newY])
+                if (visited.has(newPos)) {
+                    currentPath[currentPath.length - 1] = (Math.min(map[x][y]+map[newX][newY], currentPath[currentPath.length - 1]))
+                } else {
+                    currentPath.push(map[x][y] + map[newX][newY])
+                }
             }
+            visited.add(newPos)
             queue.push([currentPath,newX, newY])
         }
 
@@ -116,3 +123,4 @@ function solution2(m,n,map){
 console.log(solution2(4,4,[[10,30,30,20],[30,30,-1,10], [0,20,20,40], [10,-1,30,40]]))
 
 console.log(solution2(2,2,[[10,20],[30,40]]))
+console.log(solution2(4,5,[[10,0,30,-1,10],[30,0,20,0,20],[10,0,10,0,30],[10,-1,30,0,10]]))
