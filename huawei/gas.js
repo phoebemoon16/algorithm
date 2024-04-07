@@ -29,98 +29,112 @@
 2.遇到-1 剩余为0
 3.遇到0 return 遇到剩余 > 100 return
 
+
+首先，我们需要建立一个二维数组 dp，其中 dp[x][y] 表示从终点到达 (x, y) 的最小油耗。
+从终点开始进行广度优先搜索（BFS），将节点加入到优先队列中，并根据消耗的油量进行排序。
+在每一步搜索中，我们考虑当前节点的四个邻居节点，如果邻居节点是合法的（不超出边界且不是障碍物），则计算到达邻居节点的油耗。
+如果邻居节点是加油站，则油耗为0；否则，油耗为当前节点油耗加上到达邻居节点的耗油量。
+如果到达邻居节点的油耗小于其当前记录的油耗，更新 dp 数组，并将该节点加入到优先队列中。
+最终，我们只需检查起点 (0, 0) 的最小油耗是否不超过 100，如果超过则返回 -1，否则返回最小油耗。
+
+代码中使用了优先队列来存储待探索的节点，以及一个二维数组 dp 来记录每个节点的最小油耗。
+
+在每一步搜索中，我们从优先队列中取出一个节点进行探索，并更新 dp 数组。
+
  */
 
-function solution(m,n,map){
-    const offset = [
-       [1,0],[0,1]
-    ]
-    let queue = [[0,0]]
-    let visited = new Set()
-    const dp = JSON.parse(JSON.stringify(map))
-    while(queue.length > 0) {
-        let node  = queue.shift()
-        let x = node[0]
-        let y = node[1]
-        console.log(node, x,y)
-        if(map[x][y] > 100) continue
-        if(map[x][y] == 0) continue
-        if(map[x][y] == -1) { 
-            map[x][y] = 0 
+function solution(m, n, map) {
+  const offset = [
+    [0, 1],
+    [-1, 0],
+    [0, -1],
+    [1, 0],
+  ];
+  let queue = [[m - 1, n - 1]];
+  let visited = new Set();
+  visited.add((m - 1) * n + (n - 1));
+  // 表示从终点到达的最小油耗
+  const dp = JSON.parse(JSON.stringify(map));
+  while (queue.length > 0) {
+    let node = queue.shift();
+    let x = node[0];
+    let y = node[1];
+    for (let [offsetX, offsetY] of offset) {
+      const newX = offsetX + x;
+      const newY = offsetY + y;
+      if (
+        newX < 0 ||
+        newX >= m ||
+        newY < 0 ||
+        newY >= n ||
+        map[newX][newY] === 0
+      ) {
+        continue;
+      }
+      const newPos = newX * n + newY;
+      if (visited.has(newPos)) {
+        // 取到这个节点的最小油耗
+        dp[newX][newY] = Math.min(dp[x][y] + map[newX][newY], dp[newX][newY]);
+      } else {
+        if (map[newX][newY] === -1) {
+          // dp[newX][newY] = 0; 针对到达此加油站的所有路径都是大于100的情况 这种时候 即使加油 也到不了终点
+          dp[newX][newY] = dp[x][y] >= 100 ? dp[x][y] : 0;
+        } else {
+          dp[newX][newY] += dp[x][y];
         }
-
-        for (let [offsetX, offsetY] of offset) {
-            const newX = offsetX + x
-            const newY = offsetY + y
-            if(newX < 0 || newX >= m || newY < 0 || newY >= n) continue
-            const newPos = newX * n + newY;
-            if (visited.has(newPos)) {
-                map[newX][newY] = Math.min(map[x][y]+dp[newX][newY], map[newX][newY])
-            } else {
-                map[newX][newY] += map[x][y]
-                queue.push([newX, newY])
-                visited.add(newPos)
-            }
-        }
-
+        queue.push([newX, newY]);
+        visited.add(newPos);
+      }
     }
-    console.log(map, 'map---')
+  }
+  let result = dp[0][0] > 100 ? -1 : dp[0][0];
+  console.log(result);
+  // console.log(dp, dp[0][0], "map---");
 }
 
+// 70 第一用例
+console.log(
+  solution(2, 2, [
+    [10, 20],
+    [30, 40],
+  ])
+);
 
-function solution2(m,n,map){
-    const offset = [
-       [1,0],[0,1]
-    ]
-    // let queue = [[0,0]]
-    let visited = new Set()
-    const dp = JSON.parse(JSON.stringify(map))
-    const allPath = []
-    // const currentPath = [map[0][0]]
-    let queue = [[[map[0][0]],0,0]]
-    while(queue.length > 0) {
-        let node  = queue.shift()
-        let x = node[1]
-        let y = node[2]
-        let currentPath = node[0]
-        if(x === m && y === n && currentPath.length === m + n -1) {
-            allPath.push(currentPath)
-        }
-        console.log(node, x,y)
-        if(map[x][y] > 100) continue
-        if(map[x][y] == 0) continue
-        if(map[x][y] == -1) { 
-            map[x][y] = 0 
-        }
-        // let sum = currentPath.reduce((acc,cur) => acc+cur)
-        // if(sum > 100) continue
+// 70 第二用例
+console.log(
+  solution(4, 4, [
+    [10, 30, 30, 20],
+    [30, 30, -1, 10],
+    [0, 20, 20, 40],
+    [10, -1, 30, 40],
+  ])
+);
+// 第三用例 60
+console.log(
+  solution(4, 5, [
+    [10, 0, 30, -1, 10],
+    [30, 0, 20, 0, 20],
+    [10, 0, 10, 0, 30],
+    [10, -1, 30, 0, 10],
+  ])
+);
 
-        for (let [offsetX, offsetY] of offset) {
-            const newX = offsetX + x
-            const newY = offsetY + y
-            if(newX < 0 || newX >= m || newY < 0 || newY >= n) continue
-            const newPos = newX * n + newY;
-            // map[newX][newY] += map[x][y]
-            if(map[newX][newY] == -1) {
-                currentPath.push(0)
-            } else {
-                if (visited.has(newPos)) {
-                    currentPath[currentPath.length - 1] = (Math.min(map[x][y]+map[newX][newY], currentPath[currentPath.length - 1]))
-                } else {
-                    currentPath.push(map[x][y] + map[newX][newY])
-                }
-            }
-            visited.add(newPos)
-            queue.push([currentPath,newX, newY])
-        }
+// -1
+console.log(
+  solution(4, 4, [
+    [10, 30, 30, 20],
+    [30, 30, 20, 10],
+    [10, 20, 10, 40],
+    [10, 20, 30, 40],
+  ])
+);
 
-    }
-    console.log(allPath, 'map---')
-}
-
-// console.log(solution(2,2,[[10,20],[30,40]]))
-// console.log(solution(4,4,[[110,30,30,20],[30,30,-1,10], [0,20,20,40], [10,-1,30,40]]))
-console.log(solution2(4,4,[[10,30,30,20],[30,30,-1,10], [0,20,20,40], [10,-1,30,40]]))
-
-console.log(solution2(2,2,[[10,20],[30,40]]))
-console.log(solution2(4,5,[[10,0,30,-1,10],[30,0,20,0,20],[10,0,10,0,30],[10,-1,30,0,10]]))
+// -1 到达加油站 所有路径的最小都是大于100的情况
+console.log(
+  solution(4, 4, [
+    [10, 10, 10, 10],
+    [30, 30, 20, -1],
+    [10, 20, 50, 60],
+    [10, 20, 50, 40],
+  ])
+);

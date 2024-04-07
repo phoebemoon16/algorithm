@@ -28,28 +28,54 @@ right先设为最大， 然后找出个人能力值超出的，right-- 因为是
 将符合能力值的先筛选出来
 */
 
-function solution(n, array, target){
-    let left = 0
-    let right =  n-1
-    let result = []
-    array = array.sort((a,b) => a - b)
-    while(right >= left && array[right] >= target) {
-        result.push(array[right])
-        right--
+function solution(n, array, target) {
+  let left = 0;
+  let right = n - 1;
+  let result = [];
+  array = array.sort((a, b) => a - b);
+  while (right >= left && array[right] >= target) {
+    result.push(array[right]);
+    right--;
+  }
+  // result = array.map(item => item >= target)
+  while (right >= left) {
+    if (array[left] + array[right] < target) {
+      left++;
+    } else {
+      result.push([array[left], array[right]]);
+      left++;
+      right--;
     }
-    // result = array.map(item => item >= target)
-    while(right >= left) {
-        if(array[left] + array[right] < target) {
-            left++
-        } else {
-            result.push([array[left], array[right]])
-            left++ 
-            right--
-        }
-    }
-    console.log(result)
-    return result.length
+  }
+  console.log(result);
+  return result.length;
 }
-console.log(solution(5, [3,1,5,7,9], 8))
-console.log(solution(3, [1,1,9], 8))
-console.log(solution(7, [3,1,5,7,9,2,6], 8))
+// console.log(solution(5, [3, 1, 5, 7, 9], 8));
+// console.log(solution(3, [1, 1, 9], 8));
+// console.log(solution(7, [3, 1, 5, 7, 9, 2, 6], 8));
+
+function solution2(n, array, target) {
+  let left = 0;
+  let right = n - 1;
+  let result = [];
+  array = array.sort((a, b) => a - b);
+  // result = array.map(item => item >= target)
+  while (right >= left) {
+    if (array[right] >= target) {
+      result.push(array[right]);
+      right--;
+    } else if (array[left] + array[right] < target) {
+      left++;
+    } else {
+      result.push([array[left], array[right]]);
+      left++;
+      right--;
+    }
+  }
+  console.log(result);
+  return result.length;
+}
+
+console.log(solution2(5, [3, 1, 5, 7, 9], 8));
+console.log(solution2(3, [1, 1, 9], 8));
+console.log(solution2(7, [3, 1, 5, 7, 9, 2, 6], 8));
