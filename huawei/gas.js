@@ -30,6 +30,7 @@
 3.遇到0 return 遇到剩余 > 100 return
 
 
+总终点开始遍历
 首先，我们需要建立一个二维数组 dp，其中 dp[x][y] 表示从终点到达 (x, y) 的最小油耗。
 从终点开始进行广度优先搜索（BFS），将节点加入到优先队列中，并根据消耗的油量进行排序。
 在每一步搜索中，我们考虑当前节点的四个邻居节点，如果邻居节点是合法的（不超出边界且不是障碍物），则计算到达邻居节点的油耗。
@@ -42,55 +43,6 @@
 在每一步搜索中，我们从优先队列中取出一个节点进行探索，并更新 dp 数组。
 
  */
-
-function solution(m, n, map) {
-  const offset = [
-    [0, 1],
-    [-1, 0],
-    [0, -1],
-    [1, 0],
-  ];
-  let queue = [[m - 1, n - 1]];
-  let visited = new Set();
-  visited.add((m - 1) * n + (n - 1));
-  // 表示从终点到达的最小油耗
-  const dp = JSON.parse(JSON.stringify(map));
-  while (queue.length > 0) {
-    let node = queue.shift();
-    let x = node[0];
-    let y = node[1];
-    for (let [offsetX, offsetY] of offset) {
-      const newX = offsetX + x;
-      const newY = offsetY + y;
-      if (
-        newX < 0 ||
-        newX >= m ||
-        newY < 0 ||
-        newY >= n ||
-        map[newX][newY] === 0
-      ) {
-        continue;
-      }
-      const newPos = newX * n + newY;
-      if (visited.has(newPos)) {
-        // 取到这个节点的最小油耗
-        dp[newX][newY] = Math.min(dp[x][y] + map[newX][newY], dp[newX][newY]);
-      } else {
-        if (map[newX][newY] === -1) {
-          // dp[newX][newY] = 0; 针对到达此加油站的所有路径都是大于100的情况 这种时候 即使加油 也到不了终点
-          dp[newX][newY] = dp[x][y] >= 100 ? dp[x][y] : 0;
-        } else {
-          dp[newX][newY] += dp[x][y];
-        }
-        queue.push([newX, newY]);
-        visited.add(newPos);
-      }
-    }
-  }
-  let result = dp[0][0] > 100 ? -1 : dp[0][0];
-  console.log(result);
-  // console.log(dp, dp[0][0], "map---");
-}
 
 // 70 第一用例
 console.log(
@@ -138,3 +90,92 @@ console.log(
     [10, 20, 50, 40],
   ])
 );
+
+
+console.log(
+    solution(6, 4, [
+      [10, 10, 10, 10],
+      [3, 10, 20, -1],
+      [10, 0, -1, 60],
+      [10, -1, 50, 20],
+      [10, 20, 30, 10],
+      [10, 20, 50, 10]
+    ])
+  );
+  
+
+  console.log(
+    solution(2, 1, [
+      [10],[0]
+    ])
+  );
+
+  console.log(
+    solution(2, 1, [
+      [0],[10]
+    ])
+  );
+
+  console.log(
+    solution(3, 3, [
+      [10, -1, 40],[30, 0, 50],[50, -1, 40]
+    ])
+  );
+
+
+function solution(m,n,map){
+    const offsets = [
+        [0, 1],
+        [-1, 0],
+        [0, -1],
+        [1, 0],
+    ]
+    // let dp = JSON.parse(JSON.stringify(map))
+    // let visited = new Set()
+    // visited.add((m-1) * n + (n-1))
+    // let queue = [[m-1,n-1]]
+
+    let queue = [[m - 1, n - 1]];
+    let visited = new Set();
+    visited.add((m - 1) * n + (n - 1));
+    // 表示从终点到达的最小油耗
+    const dp = JSON.parse(JSON.stringify(map));
+
+    if(map[m -1][n -1] === 0 || map[m -1][n -1] === 0)  {
+        return -1
+    }
+
+    while(queue.length > 0) {
+        let node = queue.shift()
+        let x = node[0]
+        let y = node[1]
+
+
+        for(let [offsetX, offsetY] of offsets) {
+            let newX = offsetX + x
+            let newY = offsetY + y
+
+            if(newX < 0 || newX >= m || newY < 0 || newY >= n || map[newX][newY] === 0) {
+                continue
+            }
+            const newPoint = newX * n + newY
+            if(visited.has(newPoint)) {
+                dp[newX][newY] = Math.min(dp[newX][newY], dp[x][y] + map[newX][newY])
+            } else {
+                // 如果之前的大于100 则说明不可达 不必置为0
+                if (map[newX][newY] === -1) {
+                    // dp[newX][newY] = 0; 针对到达此加油站的所有路径都是大于100的情况 这种时候 即使加油 也到不了终点
+                    dp[newX][newY] = dp[x][y] > 100 ? dp[x][y] : 0;
+                  } else {
+                    dp[newX][newY] += dp[x][y];
+                  }
+                visited.add(newPoint)
+                queue.push([newX, newY])
+            }
+        }
+
+    }
+    let result = dp[0][0] > 100 ? -1 : dp[0][0];
+    return result
+    // console.log(result,dp);
+}
