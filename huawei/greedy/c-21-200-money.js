@@ -114,50 +114,48 @@ console.log(solution([1, 2, 2, 7, 3, 6, 1], 3));
 第三个小区反馈还有3个小朋友与自己同一小区，则这些小朋友只能是另外一个小区的。这个小区有4个小朋友。
  */
 
-
-function friends(array){
+function friends(array) {
   if (array.length > 999) {
-    return
+    return;
   }
-  array = array.sort((a,b) => a - b)
-  array = [...new Set(array)]
-  console.log(array, 'array')
+  array = array.sort((a, b) => a - b);
+  array = [...new Set(array)];
+  console.log(array, "array");
   // 最后一个参数表示初始值（initialValue），也就是初始的累加器值。如果不提供初始值，则默认使用数组的第一个元素作为初始值，然后从数组的第二个元素开始进行累加。
-  return array.reduce((acc, cur) => acc + (cur + 1), 0)
+  return array.reduce((acc, cur) => acc + (cur + 1), 0);
 }
 
-console.log(friends([2,2,3]))
-
+console.log(friends([2, 2, 3]));
 
 /**
- * 
- * @param {*} array 
+ *
+ * @param {*} array
  * 贪吃猴子： 可以从一边开始吃，可以两头吃， 但是中间不能有间隔
  * 解题思路： 先从一边开始吃 取得一定的值， 然后定义2个指针，从另一边开始移动 直到另一边的位置为n 取的其最大值
  */
-function monkey(array, n){
-  let leftNum = 0
-  for(let i = 0; i<n; i++) {
-    leftNum += array[i]
+function monkey(array, n) {
+  let leftNum = 0;
+  for (let i = 0; i < n; i++) {
+    leftNum += array[i];
   }
-  let maxNum = leftNum
+  let maxNum = leftNum;
   // n大于array的长度，说明是可以全部吃完的。
   if (n >= array.length) {
-    return maxNum
+    return maxNum;
   } else {
-    let left = n-1
-    let right = array.length-1
-    while(left >= 0) {
-      leftNum = leftNum - array[left] + array[right]
-      left--
-      right--
-      maxNum = Math.max(maxNum, leftNum)
+    let left = n - 1;
+    let right = array.length - 1;
+    while (left >= 0) {
+      leftNum = leftNum - array[left] + array[right];
+      left--;
+      right--;
+      maxNum = Math.max(maxNum, leftNum);
     }
   }
-  return maxNum
+  return maxNum;
 }
 
-console.log(monkey([4, 2, 2, 3], 2), 'monkey');
+console.log(monkey([4, 2, 2, 3], 2), "monkey");
 console.log(monkey([1, 2, 3], 3));
 
 console.log(monkey([1, 2, 2, 7, 3, 6, 1], 3));

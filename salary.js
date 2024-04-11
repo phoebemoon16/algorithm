@@ -2,7 +2,7 @@
  * @Author: wanghh
  * @Date: 2024-04-08 16:33:12
  * @LastEditors: wanghh
- * @LastEditTime: 2024-04-08 17:05:08
+ * @LastEditTime: 2024-04-09 16:24:10
  * @Description:
  */
 // 定义上下浮动的范围
@@ -10,7 +10,7 @@ const fluctuation = 17309.62;
 
 // 定义需要找到的数字个数和目标总和
 const numCount = 6;
-const targetSum = 103857.76;
+const targetSum = 104297.77;
 
 // 定义结果数组
 let result = [];
