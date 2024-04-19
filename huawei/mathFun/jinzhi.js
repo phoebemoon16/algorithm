@@ -1,3 +1,10 @@
+/*
+ * @Author: wanghh
+ * @Date: 2024-04-03 09:31:59
+ * @LastEditors: wanghh
+ * @LastEditTime: 2024-04-11 15:49:23
+ * @Description:
+ */
 /** 来自异国的客人 进制之间的转换
  * 题目描述:
 有位客人来自异国，在该国使用m进制计数。
@@ -24,7 +31,7 @@ function solution(k, n, m) {
   let result = [];
   let stringRes = "";
   while (k > 0) {
-    let remin = k % m; // 是每一位上的位值 从最低位开始去取
+    let remin = k % m; // 是每一位上的位值 从最低位开始去取 K进制转为m进制
     result.push(remin);
     stringRes = remin + stringRes;
     if (remin === n) {
