@@ -27,72 +27,74 @@
  */
 
 // 中序遍历 左 根 右 队列先进先出
-function inorderFun(array){
-    let result = []
-    function traverse(node){
-        if(node === null) {
-            return
-        }
-        // console.log(node, node.left,'node0000')
-        // 先遍历左子树
-        if (node.left) {
-            traverse(node.left);
-        }
-        // 将当前节点的值加入结果数组
-        result.push(node.value);
-        // 再遍历右子树
-        if (node.right) {
-            traverse(node.right);
-        }
+function inorderFun(array) {
+  let result = [];
+  function traverse(node) {
+    if (node === null) {
+      return;
     }
-    traverse(array[0]);
-    return result
+    // console.log(node, node.left,'node0000')
+    // 先遍历左子树
+    if (node.left) {
+      traverse(node.left);
+    }
+    // 将当前节点的值加入结果数组
+    result.push(node.value);
+    // 再遍历右子树
+    if (node.right) {
+      traverse(node.right);
+    }
+  }
+  traverse(array[0]);
+  return result;
 }
 
-
-class Node{
-    constructor(left, right, weight, value){
-        this.left = left
-        this.right = right
-        this.weight = weight
-        this.value = value
-    }
+class Node {
+  constructor(left, right, weight, value) {
+    this.left = left;
+    this.right = right;
+    this.weight = weight;
+    this.value = value;
+  }
 }
 
 function sort(array) {
-    return array.sort((a,b) => a.value - b.value)
+  return array.sort((a, b) => a.value - b.value);
 }
 /**
  * 根据数组构建哈夫曼树
  * 先排序
  * 每一个元素 设置第一个对象 {left,right,weight,height}
- *  */ 
-function buildTree(arr){
- arr = arr.sort((a,b) => a-b)
- let nodes = []
- for(let value of arr) {
-    nodes.push(new Node(null, null, 0, value))
- }
+ *  */
+function buildTree(arr) {
+  arr = arr.sort((a, b) => a - b);
+  let nodes = [];
+  for (let value of arr) {
+    nodes.push(new Node(null, null, 0, value));
+  }
 
- while(nodes.length > 1) {
-    let left = nodes.shift()
-    let right = nodes.shift()
+  while (nodes.length > 1) {
+    let left = nodes.shift();
+    let right = nodes.shift();
     // 左节点的值小于右节点
     // 当左右节点权值相同时，左子树高度高度小于等于右子树。
-    if((left.value === right.value && left.weight > right.weight) || left.value > right.value) {
-        [left, right] = [right, left]
+    if (
+      (left.value === right.value && left.weight > right.weight) ||
+      left.value > right.value
+    ) {
+      [left, right] = [right, left];
     }
-    let fa_weight = right.weight + 1
-    let parent = new Node(left, right, fa_weight, left.value+right.value)
+    let fa_weight = right.weight + 1;
+    let parent = new Node(left, right, fa_weight, left.value + right.value);
     // console.log(left, right, parent, 'build==========')
-    nodes.unshift(parent)
+    nodes.unshift(parent);
     // 每次求得父节点记得排序 可以使下次总是取的前面2个最小值
-    nodes = sort(nodes)
+    nodes = sort(nodes);
     // console.log(nodes, 'nodes00000')
- }
- return nodes
+  }
+  return nodes;
 }
 
-console.log(inorderFun(buildTree([5,15,30,40,10])), 'finally')
+console.log(inorderFun(buildTree([5, 15, 30, 40, 10])), "finally");
 
-console.log(inorderFun(buildTree([5,10,12,20,13])), 'finally')
+console.log(inorderFun(buildTree([5, 10, 12, 20, 13])), "finally");
