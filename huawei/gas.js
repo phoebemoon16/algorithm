@@ -29,6 +29,11 @@
 2.遇到-1 剩余为0
 3.遇到0 return 遇到剩余 > 100 return
 
+最开始思路： 最开始想的是从头开始累加，一直累加到最后一个格子 这个总和就是最小油耗 但是我却忽略了中间有加油站的问题
+如果有加油站的话，是计算从加油站到终点的油耗，而不是起点到终点的最小油耗。
+从开头到加油站的油耗也是需要记录下来的，否则得不出答案。
+
+最后解决方法： 从终点走到起点，即使遇到加油站也是计算加油站到起点的最小油耗，符合条件。
 
 总终点开始遍历
 首先，我们需要建立一个二维数组 dp，其中 dp[x][y] 表示从终点到达 (x, y) 的最小油耗。
@@ -91,91 +96,87 @@ console.log(
   ])
 );
 
+console.log(
+  solution(6, 4, [
+    [10, 10, 10, 10],
+    [3, 10, 20, -1],
+    [10, 0, -1, 60],
+    [10, -1, 50, 20],
+    [10, 20, 30, 10],
+    [10, 20, 50, 10],
+  ])
+);
+
+console.log(solution(2, 1, [[10], [0]]));
+
+console.log(solution(2, 1, [[0], [10]]));
 
 console.log(
-    solution(6, 4, [
-      [10, 10, 10, 10],
-      [3, 10, 20, -1],
-      [10, 0, -1, 60],
-      [10, -1, 50, 20],
-      [10, 20, 30, 10],
-      [10, 20, 50, 10]
-    ])
-  );
-  
+  solution(3, 3, [
+    [10, -1, 40],
+    [30, 0, 50],
+    [50, -1, 40],
+  ])
+);
 
-  console.log(
-    solution(2, 1, [
-      [10],[0]
-    ])
-  );
+function solution(m, n, map) {
+  const offsets = [
+    [0, 1],
+    [-1, 0],
+    [0, -1],
+    [1, 0],
+  ];
+  // let dp = JSON.parse(JSON.stringify(map))
+  // let visited = new Set()
+  // visited.add((m-1) * n + (n-1))
+  // let queue = [[m-1,n-1]]
 
-  console.log(
-    solution(2, 1, [
-      [0],[10]
-    ])
-  );
+  let queue = [[m - 1, n - 1]];
+  let visited = new Set();
+  visited.add((m - 1) * n + (n - 1));
+  // 表示从终点到达的最小油耗
+  const dp = JSON.parse(JSON.stringify(map));
 
-  console.log(
-    solution(3, 3, [
-      [10, -1, 40],[30, 0, 50],[50, -1, 40]
-    ])
-  );
+  if (map[m - 1][n - 1] === 0 || map[m - 1][n - 1] === 0) {
+    return -1;
+  }
 
+  while (queue.length > 0) {
+    let node = queue.shift();
+    let x = node[0];
+    let y = node[1];
 
-function solution(m,n,map){
-    const offsets = [
-        [0, 1],
-        [-1, 0],
-        [0, -1],
-        [1, 0],
-    ]
-    // let dp = JSON.parse(JSON.stringify(map))
-    // let visited = new Set()
-    // visited.add((m-1) * n + (n-1))
-    // let queue = [[m-1,n-1]]
+    for (let [offsetX, offsetY] of offsets) {
+      let newX = offsetX + x;
+      let newY = offsetY + y;
 
-    let queue = [[m - 1, n - 1]];
-    let visited = new Set();
-    visited.add((m - 1) * n + (n - 1));
-    // 表示从终点到达的最小油耗
-    const dp = JSON.parse(JSON.stringify(map));
-
-    if(map[m -1][n -1] === 0 || map[m -1][n -1] === 0)  {
-        return -1
-    }
-
-    while(queue.length > 0) {
-        let node = queue.shift()
-        let x = node[0]
-        let y = node[1]
-
-
-        for(let [offsetX, offsetY] of offsets) {
-            let newX = offsetX + x
-            let newY = offsetY + y
-
-            if(newX < 0 || newX >= m || newY < 0 || newY >= n || map[newX][newY] === 0) {
-                continue
-            }
-            const newPoint = newX * n + newY
-            if(visited.has(newPoint)) {
-                dp[newX][newY] = Math.min(dp[newX][newY], dp[x][y] + map[newX][newY])
-            } else {
-                // 如果之前的大于100 则说明不可达 不必置为0
-                if (map[newX][newY] === -1) {
-                    // dp[newX][newY] = 0; 针对到达此加油站的所有路径都是大于100的情况 这种时候 即使加油 也到不了终点
-                    dp[newX][newY] = dp[x][y] > 100 ? dp[x][y] : 0;
-                  } else {
-                    dp[newX][newY] += dp[x][y];
-                  }
-                visited.add(newPoint)
-                queue.push([newX, newY])
-            }
+      if (
+        newX < 0 ||
+        newX >= m ||
+        newY < 0 ||
+        newY >= n ||
+        map[newX][newY] === 0
+      ) {
+        continue;
+      }
+      const newPoint = newX * n + newY;
+      if (visited.has(newPoint)) {
+        dp[newX][newY] = Math.min(dp[newX][newY], dp[x][y] + map[newX][newY]);
+      } else {
+        // 如果之前的大于100 则说明不可达 不必置为0
+        if (map[newX][newY] === -1) {
+          // dp[newX][newY] = 0; 针对到达此加油站的所有路径都是大于100的情况 这种时候 即使加油 也到不了终点
+          dp[newX][newY] = dp[x][y] > 100 ? dp[x][y] : 0;
+        } else {
+          dp[newX][newY] += dp[x][y];
         }
-
+        visited.add(newPoint);
+        queue.push([newX, newY]);
+      }
     }
-    let result = dp[0][0] > 100 ? -1 : dp[0][0];
-    return result
-    // console.log(result,dp);
+  }
+  console.log(dp, "dp000");
+  let result = dp[0][0] > 100 ? -1 : dp[0][0];
+  return result;
+  // console.log(result,dp);
 }
