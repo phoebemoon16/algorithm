@@ -2,7 +2,7 @@
  * @Author: wanghh
  * @Date: 2023-11-30 14:21:17
  * @LastEditors: wanghh
- * @LastEditTime: 2023-12-01 09:39:18
+ * @LastEditTime: 2024-04-24 08:54:35
  * @Description:
  */
 /**
@@ -10,6 +10,15 @@
  * O(n log(n))
  * o(n2) 动态规划
  * 解决方案： 动态规划+贪心
+ * 
+ * x: ABCBDAB
+Y: BDCABC
+
+BCAB:最长公共子序列
+记住子序列是可以不连续的  子串也是可以连续的
+
+2个数组肯定就是二维dp
+
  */
 let arr = [
   ["A", "B", "C", "B", "D", "A", "B"],
