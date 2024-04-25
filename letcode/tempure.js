@@ -39,7 +39,7 @@ function solution(array) {
 }
 console.log(solution([73, 74, 75, 71, 69, 72, 76, 73]));
 
-// 用栈的思路去解决 这个就在合理时间内 看此题解
+// 用栈的思路去解决 这个就在合理时间内 看此题解 和华为的找朋友很像 找身高高于他本身的朋友
 // https://leetcode.cn/problems/iIQa4I/solutions/995032/shua-chuan-jian-zhi-offer-day18-zhan-ii-mdv06/
 function solution2(array) {
   let total = array.length;
