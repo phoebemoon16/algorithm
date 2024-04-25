@@ -31,7 +31,6 @@ console.log(uniquePaths(3, 7));
  *
  * graph 的第 i 个数组中的单元都表示有向图中 i 号节点所能到达的下一些结点（译者注：有向图是有方向的，即规定了 a→b 你就不能从 b→a ），若为空，就是没有下一个节点了。
 解题思路： 深度优先 先沿着一条线走到底 看是否能到达n-1 能则+1 否则继续选择其他路线走
-1.深度优先
 */
 function allPathsSourceTarget(graph) {
   let target = graph.length - 1;

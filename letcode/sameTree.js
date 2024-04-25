@@ -27,3 +27,31 @@ function solution(p, q) {
   }
   return solution(p.left, q.left) && solution(p.right, q.right);
 }
+
+/** 对称二叉树
+ *  判断一个树是不是对称二叉树
+ *  子树也一定是对称二叉树
+ *
+ * 先再定义一个一模一样的树 用做判断
+ * 和判断相同树是差不多的步骤 只不过需要加上下面的判断条件
+ * 1. left.left = right.right
+ * left.right = right.left
+ * 满足此2个条件 才能证明他是对称二叉树
+ */
+function check(p, q) {
+  if (p === null && q === null) {
+    return true;
+  }
+  if (p === null || q === null) {
+    return false;
+  }
+  if (p.val === q.val && check(p.left, q.right) && check(p.right, q.left)) {
+    return true;
+  } else {
+    return false;
+  }
+}
+var isSymmetric = function (root) {
+  return check(root, root);
+};
+console.log(isSymmetric([1, 2, 2, 3, 4, 4, 3]));
