@@ -1,4 +1,6 @@
-/** 不同路径问题
+/** 
+ * https://leetcode.cn/problems/2AoeFn/
+ * 不同路径问题
  *一个机器人位于一个 m x n 网格的左上角 （起始点在下图中标记为 “Start” ）。
 机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为 “Finish” ）
 
@@ -26,6 +28,7 @@ function uniquePaths(m, n) {
 console.log(uniquePaths(3, 7));
 
 /**
+ *  https://leetcode.cn/problems/bP4bmD/description/
  *  一个图的可能路径问题
  *  给定一个有 n 个节点的有向无环图，用二维数组 graph 表示，请找到所有从 0 到 n-1 的路径并输出（不要求按顺序）。
  *

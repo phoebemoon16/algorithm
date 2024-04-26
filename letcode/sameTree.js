@@ -1,3 +1,10 @@
+/*
+ * @Author: wanghh
+ * @Date: 2024-04-22 09:39:42
+ * @LastEditors: wanghh
+ * @LastEditTime: 2024-04-26 15:15:27
+ * @Description:
+ */
 /** 
  * 求相同树 广度优先
  * 给你两棵二叉树的根节点 p 和 q ，编写一个函数来检验这两棵树是否相同。
@@ -14,7 +21,7 @@
 
 */
 
-// 递归左子树和左子树比 右子树和右子树比
+// 递归左子树和左子树比 右子树和右子树比 并节点和节点比
 function solution(p, q) {
   if (p === null && q === null) {
     return true;

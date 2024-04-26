@@ -1,3 +1,10 @@
+/*
+ * @Author: wanghh
+ * @Date: 2024-04-19 14:25:04
+ * @LastEditors: wanghh
+ * @LastEditTime: 2024-04-26 15:24:08
+ * @Description:
+ */
 /** 验证搜索二叉树
  * 
  * 节点的左
@@ -15,10 +22,11 @@
 
 左 根 右  
 
+搜索二叉树 普通二叉树
+
 还有一道题是恢复二叉树，将普通二叉树恢复成搜索二叉树
 先中序遍历然后再排序 排完序的就是搜索二叉树 再将此树输出
 
-有个例子就是不是搜索二叉树的错误情况  
  */
 
 function solution(root) {
@@ -50,19 +58,5 @@ function solution2(inorder) {
   root.push(inorder[midIndex]);
   solution2(inorder.slice(0, midIndex));
   solution2(inorder.slice(midIndex + 1));
-  //   root.push(left);
-  //   root.push(inorder[(0, midIndex)]);
   return root;
 }
-
-// function inorderTraversal(root) {
-//   if (!root) return [];
-//   return [
-//     ...inorderTraversal(root.left),
-//     root.val,
-//     ...inorderTraversal(root.right),
-//   ];
-// }
-// console.log(solution2([2, 1, 3]));
-// // [1,3,null,null,2]
-// console.log(solution2([1, 3, null, null, 2]));
