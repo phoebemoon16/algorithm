@@ -13,4 +13,4 @@
 - 1.leetcode 101，简单题，对称二叉树
 - 2.leetcode 72，中等题，编辑距离
 - 异步字符串
-- 三数字之和 https://leetcode.cn/problems/1fGaJU/description/
+- 三数字之和 https://leetcode.cn/problems/1fGaJU/description/ 很像组队 用回溯算法 计算出3个数字之和为0的值
