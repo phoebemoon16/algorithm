@@ -18,17 +18,19 @@
 输出: [["a"]]
 
 解题思路： 先copy一个一个数组去进行排序 然后将相同的index
+利用map 可以少2个for循环 所以利用好map
  */
 function solution(array) {
   let map = new Map();
   for (let i = 0; i < array.length; i++) {
+    let originStr = array[i]; // 最后返回的是原数组 而不是新数组
     let str = array[i].split("").sort().join("");
     if (map.has(str)) {
       let list = map.get(str);
       console.log(list, "list");
-      map.set(str, [...list, str]);
+      map.set(str, [...list, originStr]);
     } else {
-      map.set(str, [str]);
+      map.set(str, [originStr]);
     }
   }
   console.log(array, map, "testArray");
