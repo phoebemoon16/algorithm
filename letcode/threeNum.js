@@ -46,8 +46,7 @@ function solution(array) {
 
 console.log(solution([-1, 0, 1, 2, -1, -4]));
 
-
-//  此种解法的问题是超时了  
+//  此种解法的问题是超时了
 function solution2(array) {
   // 1.得到所有可能组合情况之和
   let result = [];
@@ -78,53 +77,54 @@ function solution2(array) {
   return result;
 }
 
-// 解法三： 用双指针去解决 这个才是最靠谱 最好的解决方案
+/**
+ * 解法三： 用双指针去解决 这个才是最靠谱 最好的解决方案
+ * 一个指针从1走 一个指针从最后一步走
+ *  */
 function solution3(array) {
-  if (array.length < 3) return []
-  array.sort((a, b) => a - b)
-  let result = []
+  if (array.length < 3) return [];
+  array.sort((a, b) => a - b);
+  let result = [];
 
   for (let i = 0; i < array.length - 2; i++) {
-    if (array[i] > 0) break
+    if (array[i] > 0) break;
     // 去重
-    if (i > 0 && array[i] === array[i - 1]) continue
-    let start = i + 1
-    let end = array.length - 1
+    if (i > 0 && array[i] === array[i - 1]) continue;
+    let start = i + 1;
+    let end = array.length - 1;
     while (start < end) {
-      let sum = array[i] + array[start] + array[end]
+      let sum = array[i] + array[start] + array[end];
 
       if (sum > 0) {
-        end--
+        end--;
         //  去重
         while (start < end && array[end + 1] == array[end]) {
           end--;
         }
       }
       if (sum < 0) {
-        start++
+        start++;
         // 去重
         while (start < end && array[start - 1] == array[start]) {
           start++;
         }
       }
       if (sum === 0) {
-        result.push([array[i], array[start], array[end]])
-        start++
-        end--
+        result.push([array[i], array[start], array[end]]);
+        start++;
+        end--;
         // 去重 每走一步就要去重
         while (start < end && array[start - 1] == array[start]) {
           start++;
         }
         while (start < end && array[end + 1] == array[end]) {
-          end--
+          end--;
         }
-
       }
     }
-
   }
-  return result
+  return result;
 }
 
 console.log(solution2([-1, 0, 1, 2, -1, -4]));
-console.log(solution3([-1, 0, 1, 2, -1, -4]))
+console.log(solution3([-1, 0, 1, 2, -1, -4]));

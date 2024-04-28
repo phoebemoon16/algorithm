@@ -21,6 +21,7 @@ function solution(array) {
   let maxStep = 0;
   for (let i = 0; i < array.length; i++) {
     if (i <= maxStep) {
+      // 如果当前index数大于maxStep 说明此index已经不可达了
       // 说明最多可跳到maxStep步数 每次都取最大值
       maxStep = Math.max(maxStep, i + array[i]);
       // 当前最大步数大于总长度 说明可以跳完

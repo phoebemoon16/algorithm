@@ -26,6 +26,7 @@ function longestCommonPrefix(strs) {
       if (str !== strs[i][j] || !strs[i][j]) {
         return resultStr;
       } else if (i === strs.length - 1) {
+        // 说明后几个字符串都有当前字符 结果字符+当前字符
         resultStr += str;
       }
     }

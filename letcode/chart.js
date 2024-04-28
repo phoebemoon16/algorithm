@@ -34,7 +34,7 @@ function solution(array) {
     }
   }
   console.log(array, map, "testArray");
-  // 将map转化为数组 values
+  // 将map的value 转化为数组 [...map.values()] 或者 Array.from(map.values())
   return Array.from(map.values());
 }
 console.log(solution(["eat", "tea", "tan", "ate", "nat", "bat"]));

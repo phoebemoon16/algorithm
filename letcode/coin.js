@@ -46,14 +46,15 @@ Bob 将会取走最后一堆。
 3 8 9
  */
 
-function solution(array){
-    array.sort((a,b) => a -b)
-    let length = array.length / 3
-    let total = 0
-    for(let i = length; i<array.length; i+=2) {
-        total += array[i]
-    }
-    return total
+function solution(array) {
+  array.sort((a, b) => a - b);
+  let length = array.length / 3;
+  let total = 0;
+  //  0 -length 都是属于bob最小的数值
+  for (let i = length; i < array.length; i += 2) {
+    total += array[i];
+  }
+  return total;
 }
 
-console.log(solution([9,8,7,6,5,1,2,3,4]))
+console.log(solution([9, 8, 7, 6, 5, 1, 2, 3, 4]));

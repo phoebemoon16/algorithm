@@ -1,8 +1,8 @@
 /*
  * @Author: wanghh
- * @Date: 2024-04-22 09:39:42
+ * @Date: 2024-04-28 08:32:42
  * @LastEditors: wanghh
- * @LastEditTime: 2024-04-26 15:15:27
+ * @LastEditTime: 2024-04-28 08:47:26
  * @Description:
  */
 /** 
@@ -63,25 +63,24 @@ var isSymmetric = function (root) {
 };
 console.log(isSymmetric([1, 2, 2, 3, 4, 4, 3]));
 
-
 /***
  * 二叉树的层序遍历
  *  使用广度优先遍历
  */
 
-function levelSearch(root){
- let res = []
-  let statck = []
-  statck.push(root)
-  while(statck.length > 0) {
-    let currentLength = statck.length
+function levelSearch(root) {
+  let res = [];
+  let statck = [];
+  statck.push(root);
+  while (statck.length > 0) {
+    let currentLength = statck.length;
     // 每次都能获取到同层的左右节点
-    for(let i = 0; i< currentLength; i++) {
-      const node = statck.shift()
-      res[res.length-1].push(node.val)
-      if(node.left) statck.push(node.left)
-      if(node.right) statck.push(node.right)
+    for (let i = 0; i < currentLength; i++) {
+      const node = statck.shift();
+      res[res.length - 1].push(node.val);
+      if (node.left) statck.push(node.left);
+      if (node.right) statck.push(node.right);
     }
   }
-  return res
+  return res;
 }
