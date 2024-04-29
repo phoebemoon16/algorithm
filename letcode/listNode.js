@@ -28,6 +28,13 @@ function solution(head, n) {
         current.next = newNode
         current = current.next
     }
+    // listHead.next 再将链表进行一个输出 按照数组
+    // let currentNode = listHead
+    // let result = []
+    // while(currentNode) {
+    //     result.push(currentNode.value)
+    //     currentNode = currentNode.next
+    // }
     return listHead.next
 }
 console.log(solution([1,2,3,4,5], 2))

@@ -126,7 +126,7 @@ function solution(arr) {
   return result.length;
 }
 
-// 合并区间 直到所有区间不重叠
+// 合并区间 直到所有区间不重叠 合并重叠区间
 function solution2(arr) {
   arr.sort((a, b) => a[0] - b[0]);
   if (arr.length === 0) {

@@ -74,6 +74,7 @@ function levelSearch(root) {
   statck.push(root);
   while (statck.length > 0) {
     let currentLength = statck.length;
+    res.push([])
     // 每次都能获取到同层的左右节点
     for (let i = 0; i < currentLength; i++) {
       const node = statck.shift();
