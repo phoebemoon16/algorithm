@@ -40,12 +40,14 @@ console.log(solution([1, 2, 3]));
 console.log(solution(["a", "g", "e", "w"]));
 
 /** 
-// 重复数字
+// 重复数字 的全排列
 输入：nums = [1,1,2]
 输出：
 [[1,1,2],
  [1,2,1],
- [2,1,1]] */
+ [2,1,1]]
+注意下：重复的数字不能一直重复 比如111 每个数字出现的次数必须跟数组中的数字出现的次数相等才行
+ */
 function solution2(array) {
   let result = [];
   array.sort((a, b) => a - b);
