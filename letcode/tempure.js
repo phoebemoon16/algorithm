@@ -46,6 +46,7 @@ function solution2(array) {
   let stack = [];
   let res = new Array(total).fill(0);
   for (let i = 0; i < total; i++) {
+    // 2023年5月9号 今天看这个和最大窗口值很像 都是找出最大值并返回 一个是利用栈 一个是利用双向队列
     while (stack.length > 0 && array[stack[stack.length - 1]] < array[i]) {
       let index = stack.pop();
       res[index] = i - index;

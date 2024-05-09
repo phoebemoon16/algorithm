@@ -8,6 +8,7 @@
 输出：[[0,1],[1,0]]
  *  */
 
+// 不重复数字 和不重复字母也是一样的 都可以采用此回溯的方法
 function solution(array) {
   let result = [];
   function backTrack(path) {
@@ -27,7 +28,7 @@ function solution(array) {
         backTrack([...path, array[i]]);
       }
       // if(path.includes(array[i])) {
-      //   return 
+      //   return
       // }
       // backTrack([...path, array[i]]);
     }
@@ -36,3 +37,43 @@ function solution(array) {
   return result;
 }
 console.log(solution([1, 2, 3]));
+console.log(solution(["a", "g", "e", "w"]));
+
+/** 
+// 重复数字
+输入：nums = [1,1,2]
+输出：
+[[1,1,2],
+ [1,2,1],
+ [2,1,1]] */
+function solution2(array) {
+  let result = [];
+  array.sort((a, b) => a - b);
+  const vis = new Array(array.length).fill(false);
+  function backTrack(idx, path) {
+    if (idx === array.length) {
+      result.push(path.slice());
+      return;
+    }
+    for (let i = 0; i < array.length; i++) {
+      // 保证在填第 idx\textit{idx}idx 个数的时候重复数字只会被填入一次即可
+      // 然后每次填入的数一定是这个数所在重复数集合中「从左往右第一个未被填过的数字!!」 2个for循环去进行判断
+      if (vis[i] || (i >= 0 && array[i] === array[i - 1] && !vis[i - 1])) {
+        continue;
+      }
+      vis[i] = true;
+      path.push(array[i]);
+      backTrack(idx + 1, path);
+      vis[i] = false;
+      path.pop();
+      // if(path.includes(array[i])) {
+      //   return
+      // }
+      // backTrack(idx +1, [...path, array[i]]);
+    }
+  }
+  backTrack(0, []);
+  return result;
+}
+//
+console.log(solution2([1, 2, 1]));
