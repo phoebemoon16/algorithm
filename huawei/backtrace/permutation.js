@@ -79,3 +79,45 @@ function solution2(array) {
 }
 //
 console.log(solution2([1, 2, 1]));
+
+function goodsOrder(goods) {
+  let res = [];
+  let array = goods.split("");
+  console.log(array, "array");
+  function backtrack(path) {
+    if (path.length === goods.length) {
+      res.push(path.slice().join(""));
+      return;
+    }
+    for (let i = 0; i < array.length; i++) {
+      if (!path.includes(array[i])) {
+        backtrack([...path, array[i]]);
+      }
+    }
+  }
+  backtrack([]);
+  return res;
+}
+
+console.log(goodsOrder("agew"));
+
+function goodsOrder2(goods) {
+  let res = [];
+  function backtrack(path) {
+    if (path.length === goods.length) {
+      res.push(path.slice());
+      return;
+    }
+    // 遍历每一个字符 每一位都有可能是任一字符 这就是全排列
+    for (let i = 0; i < goods.length; i++) {
+      if (!path.includes(goods[i])) {
+        // path += goods[i]; 这样做就只能一直打agew 而得不到想要的结果 因为path被固定死了 下面写法还可以回溯到上一级的path
+        backtrack(`${path}${goods[i]}`);
+      }
+    }
+  }
+  backtrack("");
+  return res;
+}
+
+console.log(goodsOrder2("agew"));
