@@ -1,3 +1,10 @@
+/*
+ * @Author: wanghh
+ * @Date: 2024-05-17 15:45:12
+ * @LastEditors: wanghh
+ * @LastEditTime: 2024-05-17 17:00:05
+ * @Description:
+ */
 /** 变量
  * var 定义的是函数作用域
  * let const 是块级作用域
@@ -48,3 +55,24 @@ for (var i = 0; i < 5; ++i) {
   setTimeout(() => console.log(i), 0);
 }
 console.log(i); // 5
+
+let pro = new Promise((resolve, reject) => {
+  // reject;
+  // 1秒后状态改为reject,并执行then的第二个参数
+  setTimeout(reject, 1000);
+  // setTimeout(resolve, 3000);
+});
+pro
+  .then(
+    () => {
+      console.log(111);
+    },
+    () => {
+      console.log(222);
+      // 抛出错误去catch函数
+      throw new Error("wrong");
+    }
+  )
+  .catch(() => {
+    console.log(333);
+  });
