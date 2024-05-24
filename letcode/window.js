@@ -1,4 +1,11 @@
-/** 滑动窗口
+/*
+ * @Author: wanghh
+ * @Date: 2024-04-30 11:15:31
+ * @LastEditors: wanghh
+ * @LastEditTime: 2024-05-24 15:53:12
+ * @Description:
+ */
+/** 滑动窗口 求得最大值
  * https://leetcode.cn/problems/sliding-window-maximum/solutions/543818/ji-shu-shuang-duan-fen-kuai-you-xian-5xi-87ud/
  */
 // 此解法当队列的值超过一定数量时就会报错
@@ -58,8 +65,9 @@ function solution2(nums, k) {
     let left = right - k + 1;
     if (queue[0] < left) {
       queue.shift();
-      left++;
+      // left++;
     }
+    // +1 是因为下标为0 从0开始
     if (right + 1 >= k) {
       // console.log(queue, "queuequeue");
       res.push(nums[queue[0]]);
